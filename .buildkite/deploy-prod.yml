@@ -1,0 +1,23 @@
+prod-agent: &prod-agent
+  agents:
+    queue: "groupapps-prod:cicd"
+
+steps:
+  - block: "Request Deploy to Production"
+    branches: "master"
+
+  - label: ":rocket: Deploy to Production"
+    commands: "./deploy.sh salesforce-data-loader"
+    branches: "master"
+    plugins:
+      artifacts#v1.2.0:
+        upload: "service/node_modules"
+
+      docker:
+        image: node:14-slim
+        always-pull: true
+        environment:
+          - BUILD_NUMBER=$BUILDKITE_BUILD_NUMBER
+          - ENVIRONMENT=prod
+          - AWS_DEFAULT_REGION=ap-southeast-2
+    <<: *prod-agent

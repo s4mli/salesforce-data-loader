@@ -1,0 +1,138 @@
+{
+    "tags": {
+        "Project": "Ripley",
+        "Owner": "projectripley@seek.com.au",
+        "Stream": "GroupAppsEmployment"
+    },
+    "region": "ap-southeast-2",
+    "tableName": "reconciliation",
+    "secretName": "secret",
+    "bucketName": "dropbox",
+    "int9BucketName": "int9",
+    "archiveBucketName": "dropbox-archive",
+    "objectMappings": {
+        "user": "User",
+        "account": "Account",
+        "account_texts": "Account",
+        "contact": "Contact",
+        "aar": "AccountAccountRelationship__c",
+        "acr": "AccountContactRelation",
+        "bpr": "BusinessPartnerRelationship__c",
+        "atm": "AccountTeamMember",
+        "task": "Task",
+        "lead": "Lead",
+        "order": "Order",
+        "order_product": "OrderItem",
+        "contract": "Contract",
+        "contract_product": "SBQQ__Subscription__c",
+        "individual_email_result": "et4ae5__IndividualEmailResult__c",
+        "log": "Log__c",
+        "event_log": "EventLog__c",
+        "usage": "Blng__Usage__c",
+        "usage_summary": "Blng__UsageSummary__c",
+        "job_ad": "JobAd__c",
+        "invoice": "blng__Invoice__c",
+        "invoice_line": "blng__InvoiceLine__c"
+    },
+    "objectKeyField": {
+        "ontology": {
+            "Account": "SeekId__c"
+        },
+        "candidate": {
+            "User": "Username",
+            "Account": "CandidateId__c",
+            "Contact": "CandidateId__c",
+            "Lead": "Id"
+        },
+        "rsp": {
+            "User": "Username",
+            "Account": "LegacyBusinessPartnerId__c",
+            "Contact": "LegacyContactId__c",
+            "AccountContactRelation": "ExternalRelationshipId__c",
+            "AccountAccountRelationship__c": "Id",
+            "BusinessPartnerRelationship__c": "Id",
+            "AccountTeamMember": "Id",
+            "Task": "LegacyInteractionId__c",
+            "Lead": "Id"
+        },
+        "crm": {
+            "User": "Username",
+            "Account": "SeekId__c",
+            "Contact": "LegacyContactId__c",
+            "AccountContactRelation": "ExternalRelationshipId__c",
+            "AccountAccountRelationship__c": "Id",
+            "BusinessPartnerRelationship__c": "Id",
+            "AccountTeamMember": "Id",
+            "Task": "LegacyInteractionId__c",
+            "Lead": "Id",
+            "Order": "LegacyContractId__c",
+            "OrderItem": "LegacyContractItemId__c",
+            "Contract": "LegacyContractId__c",
+            "SBQQ__Subscription__c": "LegacyContractItemId__c",
+            "Blng__Usage__c": "blng__MatchingId__c",
+            "Blng__UsageSummary__c": "blng__MatchingId__c",
+            "JobAd__c": "JobId__c",
+            "blng__Invoice__c": "LegacyBillingDocumentId__c",
+            "blng__InvoiceLine__c": "LegacyBillingDocumentItemId__c"
+        },
+        "crm_sales": {
+            "User": "Username",
+            "Account": "SeekId__c",
+            "Contact": "LegacyContactId__c",
+            "AccountContactRelation": "ExternalRelationshipId__c",
+            "AccountAccountRelationship__c": "Id",
+            "BusinessPartnerRelationship__c": "Id",
+            "AccountTeamMember": "Id",
+            "Task": "LegacyInteractionId__c",
+            "Lead": "Id",
+            "Order": "LegacyOrderId__c",
+            "OrderItem": "LegacyOrderItemId__c",
+            "Contract": "LegacyContractId__c",
+            "SBQQ__Subscription__c": "LegacyContractItemId__c",
+            "Blng__Usage__c": "blng__MatchingId__c",
+            "Blng__UsageSummary__c": "blng__MatchingId__c",
+            "JobAd__c": "JobId__c",
+            "blng__Invoice__c": "LegacyBillingDocumentId__c",
+            "blng__InvoiceLine__c": "LegacyBillingDocumentItemId__c"
+        }
+    },
+    "qa": {
+        "id": "salesforce-data-loader-qa",
+        "account": "522216600505",
+        "sfLoginUrl": "https://test.salesforce.com",
+        "sfAPIVersion": "48.0",
+        "sfServiceUrl": "https://cs115.salesforce.com/services/data/v%s/",
+        "notificationBucket": {
+            "region": "ap-southeast-2",
+            "bucketName": "hyperwave-transactional-dev-au",
+            "filePath": "adv/crm/",
+            "roleArn": "arn:aws:iam::517337330787:role/hyperwave-assume-role-adv_group_apps_account-au"
+        }
+    },
+    "staging": {
+        "id": "salesforce-data-loader-staging",
+        "account": "522216600505",
+        "sfLoginUrl": "https://test.salesforce.com",
+        "sfAPIVersion": "48.0",
+        "sfServiceUrl": "https://cs115.salesforce.com/services/data/v%s/",
+        "notificationBucket": {
+            "region": "ap-southeast-2",
+            "bucketName": "hyperwave-transactional-dev-au",
+            "filePath": "adv/crm/",
+            "roleArn": "arn:aws:iam::517337330787:role/hyperwave-assume-role-adv_group_apps_account-au"
+        }
+    },
+    "prod": {
+        "id": "salesforce-data-loader",
+        "account": "344717109259",
+        "sfLoginUrl": "https://login.salesforce.com",
+        "sfAPIVersion": "48.0",
+        "sfServiceUrl": "https://seek.my.salesforce.com/services/data/v%s/",
+        "notificationBucket": {
+            "region": "ap-southeast-2",
+            "bucketName": "hyperwave-transactional-prod-au",
+            "filePath": "adv/crm/",
+            "roleArn": "arn:aws:iam::752071735741:role/hyperwave-assume-role-adv_group_apps_account-au"
+        }
+    }
+}

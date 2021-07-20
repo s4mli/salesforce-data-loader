@@ -1,0 +1,61 @@
+qa-agent: &qa-agent
+  agents:
+    queue: "groupapps-dev:cicd"
+
+staging-agent: &staging-agent
+  agents:
+    queue: "groupapps-dev:cicd"
+
+prod-agent: &prod-agent
+  agents:
+    queue: "groupapps-prod:cicd"
+
+steps:
+  - label: ":rocket: Deploy to qa"
+    commands: "./deploy.sh salesforce-data-loader-qa"
+    plugins:
+      artifacts#v1.2.0:
+        upload: "service/node_modules/**"
+      ecr:
+        account_ids: "344717109259"
+        login: true
+        no-include-email: true
+        region: ap-southeast-2
+      docker:
+        image: node:14-slim
+        always-pull: true
+        environment:
+          - BUILD_NUMBER=$BUILDKITE_BUILD_NUMBER
+          - ENVIRONMENT=qa
+          - AWS_DEFAULT_REGION=ap-southeast-2
+          - SLS_DEBUG=true
+    <<: *qa-agent
+
+  - wait
+
+  - block: "Request Deploy to Staging"
+    branches: "master"
+
+  - label: ":rocket: Deploy to Staging"
+    commands: "./deploy.sh salesforce-data-loader-staging"
+    branches: "master"
+    plugins:
+      artifacts#v1.2.0:
+        upload: "service/node_modules"
+
+      docker:
+        image: node:14-slim
+        always-pull: true
+        environment:
+          - BUILD_NUMBER=$BUILDKITE_BUILD_NUMBER
+          - ENVIRONMENT=staging
+          - AWS_DEFAULT_REGION=ap-southeast-2
+          - SLS_DEBUG=true
+    <<: *staging-agent
+
+  - wait
+
+  - label: ":terminal:"
+    commands: ".buildkite/deploy-prod.sh"
+    branches: "master"
+    <<: *prod-agent
